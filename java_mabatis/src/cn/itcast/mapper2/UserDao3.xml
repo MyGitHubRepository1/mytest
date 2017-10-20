@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!--namespace：隔离SQL映射文件的，是一个SQL映射文件的唯一标识  -->
+<mapper namespace="cn.itcast.mapper2.UserDao3">
+	<!--SQL映射  -->
+	<!--根据id查询  -->
+	<select id="selectById" parameterType="int" resultType="cn.itcast.pojo.User">
+		SELECT
+			name,mobile,sex,age,address
+		FROM 
+			user
+		WHERE
+			userId=#{userId}
+	</select>
+	
+	<!--根据name查询  -->
+	<select id="selectByName" parameterType="String" resultType="cn.itcast.pojo.User">
+		SELECT 
+			userId,name,mobile,sex,age,address
+		FROM 
+			user
+		WHERE
+			name like '${value}%'
+	</select>
+	
+</mapper>

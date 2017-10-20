@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!--namespace：隔离SQL映射文件的，是一个SQL映射文件的唯一标识  -->
+<mapper namespace="user">
+	<!--SQL映射  -->
+	<!--根据id查询  -->
+	<select id="selectById" parameterType="int" resultType="cn.itcast.pojo.User">
+		SELECT
+			name,mobile,sex,age,address
+		FROM 
+			user
+		WHERE
+			userId=#{userId}
+	</select>
+	<!--根据name查询  -->
+	<select id="selectByName" parameterType="String" resultType="cn.itcast.pojo.User">
+		SELECT 
+			userId,name,mobile,sex,age,address
+		FROM 
+			user
+		WHERE
+			name like '${value}%'
+	</select>
+	<!--插入对象 -->
+	<insert id="insertInto" parameterType="cn.itcast.pojo.User">
+	
+		<!-- 插入操作中的子查询 -->
+		<selectKey order="AFTER" keyProperty="userId" resultType="int">
+			SELECT LAST_INSERT_ID()
+			
+		</selectKey>
+		INSERT INTO USER
+			(name,mobile,sex,age,address)
+		VALUES
+			(#{name},#{mobile},#{sex},#{age},#{address})
+	</insert>
+	
+	<!--更改对象 -->
+	<update id="updateUserById" parameterType="cn.itcast.pojo.User">
+		UPDATE USER
+		SET NAME=#{name}
+		WHERE userId=#{userId}
+	</update>
+	
+	<!--删除对象 -->
+	<delete id="deleteUserById" parameterType="int">
+		DELETE FROM USER WHERE userId=#{userId}
+	</delete>
+</mapper>
